@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Button from '../../UI/Button/Button'
+
 const OrderSummary = (props) => {
     const style = {
         textTransform: 'capitalize'
@@ -21,7 +23,10 @@ const OrderSummary = (props) => {
             <ul>
                 {orderIngredients}
             </ul>
+            <p><strong>Total Price:{props.price.toFixed()}</strong></p>
             <p>Please continue to checkout?</p>
+            <Button clicked={props.ContinueClick} btnType="Success">CONTINUE</Button>
+            <Button  clicked={props.CancelClick} btnType="Danger">CANCEL</Button>
         </div>
     )
 }

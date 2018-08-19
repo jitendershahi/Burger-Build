@@ -30,6 +30,7 @@ class BurgerBuilder extends  Component {
     }
 
     componentDidMount() {
+        console.log(this.props)
         axios.get('https://burger-builder-8bd98.firebaseio.com/ingredients.json')
         .then((data) => {
             console.log(data)
@@ -100,39 +101,49 @@ class BurgerBuilder extends  Component {
       }
 
       continuePurchasing = () => {
-          this.setState({
-              loading:true
-          })
-
-          const order = {
-              ingredients: this.state.ingredients,
-              price: this.state.price,
-              customer: {
-                  name: 'shanky',
-                  address: {
-                      street: 'street no 1',
-                      pincode: '201001',
-                      country: 'India'
-                  },
-                  email: 'shankysharma@gmail.com'
-              },
-              deliveryMethod: 'courior'
+          const queryParam = [];
+          for(let i in this.state.ingredients){
+              queryParam.push(encodeURIComponent(i) + "=" + encodeURIComponent(this.state.ingredients[i]))
           }
+          const queryString = queryParam.join("&")
+          console.log(queryString)
+          this.props.history.push({
+              pathname:'/checkout',
+              search:'?' + queryString
+          })
+        //   this.setState({
+        //       loading:true
+        //   })
+
+        //   const order = {
+        //       ingredients: this.state.ingredients,
+        //       price: this.state.price,
+        //       customer: {
+        //           name: 'shanky',
+        //           address: {
+        //               street: 'street no 1',
+        //               pincode: '201001',
+        //               country: 'India'
+        //           },
+        //           email: 'shankysharma@gmail.com'
+        //       },
+        //       deliveryMethod: 'courior'
+        //   }
          
-        axios.post('/orders.json',order)
-         .then((data) => {
-             this.setState({
-                 loading:false,
-                 purchasing:false
-             })
-             console.log(data)
-         }).catch((err) => {
-            this.setState({
-                loading:false,
-                purchasing:false
-            })
-             console.log(err)
-         })
+        // axios.post('/orders.json',order)
+        //  .then((data) => {
+        //      this.setState({
+        //          loading:false,
+        //          purchasing:false
+        //      })
+        //      console.log(data)
+        //  }).catch((err) => {
+        //     this.setState({
+        //         loading:false,
+        //         purchasing:false
+        //     })
+        //      console.log(err)
+        //  })
       }
 
     render () {

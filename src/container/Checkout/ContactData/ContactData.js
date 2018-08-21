@@ -67,28 +67,34 @@ class ContactData extends Component {
         loading:false
     }
 
+    formdata = (event, id) => {
+        console.log(event.target.value)
+        var formOrderData = this.state.orderForm
+
+        var updateOrderForm = { ...formOrderData[id] }
+        updateOrderForm.value = event.target.value
+        formOrderData[id] = updateOrderForm
+        this.setState({ orderForm: formOrderData})
+    }
+
     orderHandler = (event) => {
         event.preventDefault()
-        console.log(this.props.ingredients)
-
           this.setState({
               loading:true
           })
 
+          let orderData = {}
+          for(let key in this.state.orderForm){
+              orderData[key] = this.state.orderForm[key].value
+          }
           const order = {
               ingredients: this.props.ingredients,
               price: this.props.price,
-              customer: {
-                  name: 'shanky',
-                  address: {
-                      street: 'street no 1',
-                      pincode: '201001',
-                      country: 'India'
-                  },
-                  email: 'shankysharma@gmail.com'
-              },
-              deliveryMethod: 'courior'
+              orderForm:orderData
           }
+
+          console.log(order)
+
          
         axios.post('/orders.json',order)
          .then((data) => {
@@ -96,14 +102,14 @@ class ContactData extends Component {
                  loading:false
              })
              this.props.history.replace('/')
-             console.log(data)
          }).catch((err) => {
             this.setState({
                 loading:false
             })
-             console.log(err)
          })
     }
+
+    
 
     render() {
         let formElements = [];
@@ -113,16 +119,16 @@ class ContactData extends Component {
                 config:this.state.orderForm[key]
             })
         }
-        console.log(formElements)
 
         let form = (
-            <form>
+            <form onSubmit={this.orderHandler}>
                 {formElements.map(el => {
                    return <Input key={el.id} elementType={el.config.elementType}
                      elementConfig={el.config.elementConfig}
-                     value={el.config.value}/>
+                     value={el.config.value}
+                     clicked={(event) => this.formdata(event, el.id)}/>
                 })}
-                <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
+                <Button btnType="Success" >ORDER</Button>
                 </form>
         )
         if(this.state.loading) {

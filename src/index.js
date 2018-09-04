@@ -5,11 +5,11 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import Reducer from './store/reducer'
+import burgerBuilderReducer from './store/reducers/burgerBuilder'
 
 import { BrowserRouter } from 'react-router-dom'
 
-const store = createStore(Reducer)
+const store = createStore(burgerBuilderReducer,  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 const appRoute = (
   <Provider store={store}>

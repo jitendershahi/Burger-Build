@@ -12,7 +12,8 @@ import withErrorHandler from '../../hoc/withErrorHandler'
 import Yux from '../../hoc/Yux'
 
 import { connect } from 'react-redux'
-import * as actionTypes from '../../store/action'
+
+import * as burgerBuilderActions from '../../store/actions/index'
 
 
 class BurgerBuilder extends  Component {
@@ -166,8 +167,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIngredientAdded: (ign) => dispatch({type:actionTypes.ADD_INGREDIENT, ingredientName:ign}),
-        onIngredientRemoved: (ign) => dispatch({type:actionTypes.REMOVE_INGREDIENT, ingredientName:ign})
+        onIngredientAdded: (ign) => dispatch(burgerBuilderActions.addIngredient(ign)),
+        onIngredientRemoved: (ign) => dispatch(burgerBuilderActions.removeIngredient(ign))
     }
 }
 

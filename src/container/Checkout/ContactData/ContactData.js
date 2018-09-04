@@ -7,6 +7,7 @@ import axios from '../../../axios-orders'
 import Spinner from '../../../components/UI/Spinner/Spinner'
 
 import Input from '../../../components/UI/Input/Input'
+import { connect } from 'react-redux'
 
 
 
@@ -205,7 +206,14 @@ class ContactData extends Component {
     }
 }
 
+const mapToStateProps = state => {
+    return {
+        ings:state.ingredients,
+        price:state.price
+    }
+}
 
-export default ContactData;
+
+export default connect(mapToStateProps)(ContactData);
 
  

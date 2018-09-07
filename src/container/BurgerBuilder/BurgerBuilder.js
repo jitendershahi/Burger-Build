@@ -21,12 +21,12 @@ class BurgerBuilder extends  Component {
     state = {
     purchaseable: false,
     purchasing:false,
-    loading:false,
-    error:false
+    loading:false
     }
 
     componentDidMount() {
         console.log(this.props)
+        this.props.initIngrdients()
         // axios.get('https://burger-builder-8bd98.firebaseio.com/ingredients.json')
         // .then((data) => {
         //     console.log(data)
@@ -121,7 +121,7 @@ class BurgerBuilder extends  Component {
 
         let orderSummary = null
 
-        let burger = this.state.error ? <p>Ingredients can't be loaded!</p> : <Spinner />;
+        let burger = this.props.error ? <p>Ingredients can't be loaded!</p> : <Spinner />;
         if(this.props.ings){ 
             burger = (
             <Yux>
@@ -161,14 +161,16 @@ class BurgerBuilder extends  Component {
 const mapStateToProps = state => {
     return {
         ings:state.ingredients,
-        price:state.price
+        price:state.price,
+        error:state.error
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         onIngredientAdded: (ign) => dispatch(burgerBuilderActions.addIngredient(ign)),
-        onIngredientRemoved: (ign) => dispatch(burgerBuilderActions.removeIngredient(ign))
+        onIngredientRemoved: (ign) => dispatch(burgerBuilderActions.removeIngredient(ign)),
+        initIngrdients: () => dispatch(burgerBuilderActions.initIngrdients())
     }
 }
 

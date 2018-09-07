@@ -41,7 +41,7 @@ class Checkout extends Component {
         return (
             <div>
                 <CheckoutSummary 
-                checkingredients={this.props.ings} 
+                checkingredients={this.props.ings}  
                 continueCheckout={this.continueCheckoutdata}
                  cancelCheckout={this.cancelCheckoutdata}
                  />

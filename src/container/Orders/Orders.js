@@ -12,10 +12,10 @@ import { connect } from 'react-redux'
 
 
 class Orders extends Component {
-    state = {
-        orders:[],
-        loading:true
-    }
+    // state = {
+    //     orders:[],
+    //     loading:true
+    // }
 
     componentDidMount() {
         this.props.onFetchOrders()
@@ -28,7 +28,7 @@ class Orders extends Component {
         //              id:key
         //             })  
         //       }
-        //       this.setState({loading:false, orders:fetchOrders})
+        //       this.setState({loading:false, orders:fetchOrders})x
         //   }).catch((err) => {
         //       console.log(err)
         //       this.setState({loading:false})
@@ -38,12 +38,12 @@ class Orders extends Component {
     render() {
         let orders = (
             this.props.orders.map(order => {
-                console.log(order)
+                console.log(order.ingredients)
                 return <Order key={order.id} price={+order.price} ingredients={order.ingredients}/>
             })
         )
 
-        if(this.state.loading){
+        if(this.props.loading){
             orders = <Spinner />
         }
         return(

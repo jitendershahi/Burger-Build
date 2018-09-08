@@ -7,6 +7,8 @@ import BurgerBuilder from './container/BurgerBuilder/BurgerBuilder'
 import Checkout from './container/Checkout/Checkout'
 import Orders from './container/Orders/Orders'
 
+import Auth from './container/Auth/Auth'
+
 class App extends Component {
   render() {
     return (
@@ -14,6 +16,7 @@ class App extends Component {
         <Layout>
           <Route path="/checkout" component={Checkout} />
           <Route path="/orders" component={Orders} />
+          <Route path="/auth" component={Auth} />
           <Route path="/" exact component={BurgerBuilder} />
           {/* <Route  render={() => {return (
             <h1>page not found</h1>

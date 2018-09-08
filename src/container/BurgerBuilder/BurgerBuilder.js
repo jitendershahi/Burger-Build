@@ -25,8 +25,7 @@ class BurgerBuilder extends  Component {
     }
 
     componentDidMount() {
-        console.log(this.props)
-        this.props.initIngrdients()
+        this.props.fetchIngrdients()
         // axios.get('https://burger-builder-8bd98.firebaseio.com/ingredients.json')
         // .then((data) => {
         //     console.log(data)
@@ -107,6 +106,7 @@ class BurgerBuilder extends  Component {
         //       pathname:'/checkout',
         //       search:'?' + queryString
         //   })
+        this.props.purchaseinit()
         this.props.history.push('/checkout')
       }
 
@@ -160,9 +160,9 @@ class BurgerBuilder extends  Component {
 
 const mapStateToProps = state => {
     return {
-        ings:state.ingredients,
-        price:state.price,
-        error:state.error
+        ings:state.burgerBuilder.ingredients,
+        price:state.burgerBuilder.price,
+        error:state.burgerBuilder.error
     }
 }
 
@@ -170,7 +170,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onIngredientAdded: (ign) => dispatch(burgerBuilderActions.addIngredient(ign)),
         onIngredientRemoved: (ign) => dispatch(burgerBuilderActions.removeIngredient(ign)),
-        initIngrdients: () => dispatch(burgerBuilderActions.initIngrdients())
+        fetchIngrdients: () => dispatch(burgerBuilderActions.initIngrdients()),
+        purchaseinit: () => dispatch(burgerBuilderActions.purchaseInit())
     }
 }
 

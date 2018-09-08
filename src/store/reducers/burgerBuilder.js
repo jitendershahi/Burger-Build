@@ -1,12 +1,7 @@
 import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
-    ingredients:{
-        salad: 0,
-        bacon: 0,
-        cheese: 0,
-        meat: 0
-    },
+    ingredients:null,
     price:4,
     error:false
 }
@@ -42,9 +37,16 @@ const Reducer = (state = initialState, action) => {
         }
        
         case actionTypes.SET_INGREDIENTS:
+        console.log("action.ingredients",action.ingredients)
         return {
             ...state,
-            ingredients:action.ingredients,
+            ingredients:{
+                salad:action.ingredients.salad,
+                bacon:action.ingredients.bacon,
+                cheese:action.ingredients.cheese,
+                meat:action.ingredients.meat
+            },
+            price:4,   
             error:false
         }
 

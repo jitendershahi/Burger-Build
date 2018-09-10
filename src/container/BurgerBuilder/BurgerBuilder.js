@@ -83,9 +83,14 @@ class BurgerBuilder extends  Component {
     //   }
 
       purchaseBurger = () => {
-          this.setState({
-            purchasing:true
-          })
+          if(this.props.isAuthenticate){
+            this.setState({
+                purchasing:true
+              })
+          } else {
+              this.props.history.push('/auth')
+          }
+          
       }
 
       hideModal = () => {
@@ -132,6 +137,7 @@ class BurgerBuilder extends  Component {
                  disable={disableInfo}
                  purchase={this.updatePurchaseable()}
                  price={this.props.price}
+                 isAuth={this.props.isAuthenticate}
                  purch={this.purchaseBurger}/> 
             </Yux>
             );
@@ -162,7 +168,8 @@ const mapStateToProps = state => {
     return {
         ings:state.burgerBuilder.ingredients,
         price:state.burgerBuilder.price,
-        error:state.burgerBuilder.error
+        error:state.burgerBuilder.error,
+        isAuthenticate:state.auth.token
     }
 }
 

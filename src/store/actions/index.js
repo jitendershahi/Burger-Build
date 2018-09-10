@@ -14,5 +14,6 @@ export {
 from './order'
 
 export {
-    Auth
+    Auth,
+    authLogout
 } from './Auth'

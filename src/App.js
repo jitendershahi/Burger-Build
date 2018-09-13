@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route } from 'react-router-dom'
+import { Route, withRouter, Redirect } from 'react-router-dom'
 
 import Layout from './components/Layout/layout'
 import BurgerBuilder from './container/BurgerBuilder/BurgerBuilder'
@@ -10,26 +10,54 @@ import Logout from './container/Auth/Logout/Logout'
 
 import Auth from './container/Auth/Auth'
 
+import { connect } from 'react-redux'
+import * as actions from './store/actions/index'
+
 class App extends Component {
+
+  componentDidMount(){
+    this.props.onTryAutoSignup()
+  }
+
   render() {
+
+    let routes = ( 
+    <Layout>
+      <Route path="/auth" component={Auth} />
+      <Route path="/" exact component={BurgerBuilder} />
+      <Redirect to="/"/>
+    </Layout>
+    )
+
+    if(this.props.isAuthenticate){
+      routes = (<Layout>
+      <Route path="/checkout" component={Checkout} />
+      <Route path="/orders" component={Orders} />
+      <Route path="/logout" component={Logout} />
+      <Route path="/" exact component={BurgerBuilder} />
+      <Redirect to="/"/>
+
+      </Layout>)
+    }
+
     return (
       <div>
-        <Layout>
-          <Route path="/checkout" component={Checkout} />
-          <Route path="/orders" component={Orders} />
-          <Route path="/auth" component={Auth} />
-          <Route path="/logout" component={Logout} />
-          <Route path="/" exact component={BurgerBuilder} />
-          {/* <Route  render={() => {return (
-            <h1>page not found</h1>
-          )}} /> */}
-
-         {/* <BurgerBuilder/>
-         <Checkout /> */}
-        </Layout>
+        {routes}
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    isAuthenticate:state.auth.token
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onTryAutoSignup:() => dispatch(actions.authCheckState())
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

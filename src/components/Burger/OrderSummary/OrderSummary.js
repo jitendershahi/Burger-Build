@@ -10,7 +10,7 @@ class OrderSummary extends Component {
     
     render() {
         const style = {
-            textTransform: 'capitalize'
+            textTransform: 'capitalize' 
         }
         
         const orderIngredients = Object.keys(this.props.ingredients)

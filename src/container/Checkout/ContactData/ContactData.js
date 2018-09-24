@@ -190,7 +190,7 @@ class ContactData extends Component {
             <form onSubmit={this.orderHandler}>
                 {formElements.map(el => {
                    return <Input key={el.id} elementType={el.config.elementType}
-                     elementConfig={el.config.elementConfig}
+                     elementConfig={el.config.elementConfig} 
                      value={el.config.value}
                      clicked={(event) => this.formdata(event, el.id)}
                      inValid={!el.config.valid}

@@ -17,4 +17,4 @@ const Toolbar = (props) => (
     </header>
 )
 
-export default Toolbar;
+export default Toolbar; 
